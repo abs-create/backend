@@ -1,0 +1,15 @@
+// Delete a lesson
+app.delete("/activities", async (req, res) => {
+  try {
+    const { topic, price, location } = req.body;
+    const result = await lessonsCollection.deleteOne({ topic, price, location });
+
+    if (result.deletedCount === 1) {
+      res.json({ message: "Lesson deleted successfully" });
+    } else {
+      res.status(404).json({ message: "Lesson not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Error deleting lesson" });
+  }
+});
